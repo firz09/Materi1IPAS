@@ -3,49 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Streaming YouTube Tanpa Iklan</title>
+    <title>Streaming Video Fullscreen</title>
     <style>
-        body { text-align: center; background-color: #000; color: #fff; }
-        #player { width: 800px; height: 450px; }
-        button { margin: 5px; padding: 10px 20px; font-size: 16px; cursor: pointer; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body, html {
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
     </style>
 </head>
 <body>
-    <h2>Streaming YouTube Tanpa Iklan</h2>
-    <div id="player"></div>
-    <br>
-    <button onclick="playVideo()">▶ Play</button>
-    <button onclick="pauseVideo()">⏸ Pause</button>
-    <button onclick="muteVideo()">🔇 Mute</button>
-    <button onclick="unmuteVideo()">🔊 Unmute</button>
+    <video id="videoPlayer" controls autoplay>
+        <source src="https://firz09.github.io/materiV1/video.mp4" type="video/mp4">
+        Browser kamu tidak mendukung pemutaran video.
+    </video>
 
     <script>
-        var player;
-        function onYouTubeIframeAPIReady() {
-            player = new YT.Player('player', {
-                height: '450',
-                width: '800',
-                videoId: 'O4YHcWAVEig', // Video dari link yang kamu berikan
-                playerVars: {
-                    'autoplay': 1,
-                    'controls': 0,
-                    'modestbranding': 1,
-                    'rel': 0,
-                    'showinfo': 0,
-                    'iv_load_policy': 3  // Sembunyikan anotasi
-                }
-            });
-        }
-
-        function playVideo() { player.playVideo(); }
-        function pauseVideo() { player.pauseVideo(); }
-        function muteVideo() { player.mute(); }
-        function unmuteVideo() { player.unMute(); }
-
-        var tag = document.createElement('script');
-        tag.src = "https://www.youtube.com/iframe_api";
-        var firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+        // Coba otomatis fullscreen jika didukung browser
+        document.addEventListener("DOMContentLoaded", function() {
+            let video = document.getElementById("videoPlayer");
+            video.requestFullscreen?.();
+            video.webkitRequestFullscreen?.();
+            video.mozRequestFullScreen?.();
+            video.msRequestFullscreen?.();
+        });
     </script>
 </body>
 </html>
