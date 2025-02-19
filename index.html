@@ -6,14 +6,46 @@
     <title>Streaming YouTube Tanpa Iklan</title>
     <style>
         body { text-align: center; background-color: #000; color: #fff; }
-        iframe { width: 800px; height: 450px; border: none; }
+        #player { width: 800px; height: 450px; }
+        button { margin: 5px; padding: 10px 20px; font-size: 16px; cursor: pointer; }
     </style>
 </head>
 <body>
     <h2>Streaming YouTube Tanpa Iklan</h2>
-    <iframe 
-        src="https://www.youtube-nocookie.com/embed/O4YHcWAVEig?autoplay=1&controls=0&modestbranding=1&rel=0&showinfo=0" 
-        allow="autoplay; encrypted-media" allowfullscreen>
-    </iframe>
+    <div id="player"></div>
+    <br>
+    <button onclick="playVideo()">▶ Play</button>
+    <button onclick="pauseVideo()">⏸ Pause</button>
+    <button onclick="muteVideo()">🔇 Mute</button>
+    <button onclick="unmuteVideo()">🔊 Unmute</button>
+
+    <script>
+        var player;
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('player', {
+                height: '450',
+                width: '800',
+                videoId: 'O4YHcWAVEig', // Video dari link yang kamu berikan
+                playerVars: {
+                    'autoplay': 1,
+                    'controls': 0,
+                    'modestbranding': 1,
+                    'rel': 0,
+                    'showinfo': 0,
+                    'iv_load_policy': 3  // Sembunyikan anotasi
+                }
+            });
+        }
+
+        function playVideo() { player.playVideo(); }
+        function pauseVideo() { player.pauseVideo(); }
+        function muteVideo() { player.mute(); }
+        function unmuteVideo() { player.unMute(); }
+
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    </script>
 </body>
 </html>
