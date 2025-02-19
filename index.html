@@ -1,42 +1,35 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Streaming Video Fullscreen</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body, html {
-            width: 100%;
-            height: 100%;
-            background-color: black;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Streaming Video Fullscreen</title>
+  <style>
+    body { margin: 0; background: black; display: flex; justify-content: center; align-items: center; height: 100vh; }
+    video { width: 100vw; height: 100vh; object-fit: contain; }
+  </style>
 </head>
 <body>
-    <video id="videoPlayer" controls autoplay playsinline muted>
-        <source src="https://firz09.github.io/materiV1/video.mp4" type="video/mp4">
-        Browser kamu tidak mendukung pemutaran video.
-    </video>
+  <video id="videoPlayer" controls>
+    <source src="/Nuklir.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
 
-    <script>
-        // Coba otomatis fullscreen jika didukung browser
-        document.addEventListener("DOMContentLoaded", function() {
-            let video = document.getElementById("videoPlayer");
-            video.play(); // Coba play otomatis
-            video.requestFullscreen?.();
-            video.webkitRequestFullscreen?.();
-            video.mozRequestFullScreen?.();
-            video.msRequestFullscreen?.();
-        });
-    </script>
+  <script>
+    document.addEventListener("keydown", function(event) {
+      if (event.key === "f") {
+        let video = document.getElementById("videoPlayer");
+        if (video.requestFullscreen) {
+          video.requestFullscreen();
+        } else if (video.mozRequestFullScreen) {
+          video.mozRequestFullScreen();
+        } else if (video.webkitRequestFullscreen) {
+          video.webkitRequestFullscreen();
+        } else if (video.msRequestFullscreen) {
+          video.msRequestFullscreen();
+        }
+      }
+    });
+  </script>
 </body>
 </html>
